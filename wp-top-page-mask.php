@@ -1,21 +1,30 @@
 <?php
-/*
-Plugin Name: WP Top Page Mask
-Plugin URI: https://github.com/lsii/wp-top-page-mask
-Description: Wordpressのトップページへのアクセスを任意のページに遷移させる
-Author: lsii
-Version: 0.1
-Author URI: https://github.com/lsii
-*/
 
-class TopPageMask {
+/**
+ * Plugin Name: WP Top Page Mask
+ * Plugin URI:  https://github.com/lsii/wp-top-page-mask
+ * Description: Wordpressのトップページへのアクセスを任意のページに遷移させる.
+ * Version:     0.1.0
+ * Author:      lsii
+ * Author URI:  https://github.com/lsii
+ * Text Domain: wp-top-page-mask
+ *
+ * @package     WP_TopPageMask
+ */
 
-    function __construct () {
-      add_action('admin_menu', array($this, 'add_pages'));
-      add_action('wp_head', array($this, 'hook_javascript'));
+namespace WP_TopPageMask;
+
+class TopPageMask
+{
+
+    public function __construct()
+    {
+        add_action('admin_menu', array($this, 'add_pages'));
+        add_action('wp_head', array($this, 'hook_javascript'));
     }
 
-    function hook_javascript() {
+    public function hook_javascript()
+    {
         ?>
             <script>
                 let rurl = '<?php echo $this->get_rurl(); ?>'
@@ -32,16 +41,27 @@ class TopPageMask {
         <?php
     }
 
-    function add_pages () {
-      add_menu_page('TopPageMask', 'TopPageMask',  'level_8', __FILE__, array($this,'show_top_page_mask_option_page'), '', 26);
+    public function add_pages()
+    {
+        add_menu_page(
+            'TopPageMask',
+            'TopPageMask',
+            'level_8',
+            __FILE__,
+            [ $this, 'show_top_page_mask_option_page' ],
+            '',
+            26
+        );
     }
 
-    function get_rurl () {
+    public function get_rurl()
+    {
         $opt = get_option('show_rurl_options');
-        return isset($opt['text']) ? $opt['text']: null;
+        return isset($opt['text']) ? $opt['text'] : null;
     }
 
-    function show_top_page_mask_option_page () {
+    public function show_top_page_mask_option_page()
+    {
         if (isset($_POST['show_rurl_options'])) {
             check_admin_referer('showrurloptions');
             $opt = $_POST['show_rurl_options'];
@@ -62,7 +82,7 @@ class TopPageMask {
                     <?php
                         wp_nonce_field('showrurloptions');
                         $opt = get_option('show_rurl_options');
-                        $show_text = isset($opt['text']) ? $opt['text']: null;
+                        $show_text = isset($opt['text']) ? $opt['text'] : null;
                     ?>
                     <table class="form-table">
                         <tr valign="top">
@@ -70,7 +90,12 @@ class TopPageMask {
                                 <label for="inputtext">マスクURL</label>
                             </th>
                             <td>
-                                <input name="show_rurl_options[text]" type="text" id="inputtext" value="<?php  echo $show_text ?>" class="regular-text" />
+                                <input
+                                    name="show_rurl_options[text]"
+                                    type="text"
+                                    id="inputtext"
+                                    value="<?php  echo $show_text ?>"
+                                    class="regular-text" />
                             </td>
                         </tr>
                     </table>
@@ -79,7 +104,6 @@ class TopPageMask {
             </div>
         <?php
     }
-
 }
 
-$top_page_mask = new TopPageMask;
+// $top_page_mask = new TopPageMask();
