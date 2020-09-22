@@ -2,7 +2,8 @@
     "name": "lsii/wp-top-page-mask",
     "require": {},
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.5"
+        "squizlabs/php_codesniffer": "^3.5",
+        "phpstan/phpstan": "^0.12.43"
     },
     "scripts": {
         "sniffer": [
@@ -16,6 +17,9 @@
         ],
         "sniffer-rewrite": [
             "./vendor/bin/phpcbf --standard=phpcs.xml ./"
+        ],
+        "phpstan": [
+            "./vendor/bin/phpstan analyze"
         ]
     }
 }
