@@ -23,7 +23,7 @@ class TopPageMask
         add_action('wp_head', array($this, 'hook_javascript'));
     }
 
-    public function hook_javascript()
+    public function hook_javascript(): void
     {
         ?>
             <script>
@@ -41,7 +41,7 @@ class TopPageMask
         <?php
     }
 
-    public function add_pages()
+    public function add_pages(): void
     {
         add_menu_page(
             'TopPageMask',
@@ -54,13 +54,13 @@ class TopPageMask
         );
     }
 
-    public function get_rurl()
+    public function get_rurl(): string
     {
         $opt = get_option('show_rurl_options');
-        return isset($opt['text']) ? $opt['text'] : null;
+        return isset($opt['text']) ? $opt['text'] : '';
     }
 
-    public function show_top_page_mask_option_page()
+    public function show_top_page_mask_option_page(): void
     {
         if (isset($_POST['show_rurl_options'])) {
             check_admin_referer('showrurloptions');

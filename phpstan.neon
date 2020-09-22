@@ -1,0 +1,7 @@
+parameters:
+    excludes_analyse: ['bin', 'tests', 'vendor']
+    bootstrap: null
+    level: max
+    fileExtensions:
+        - php
+    inferPrivatePropertyTypeFromConstructor: true
